@@ -12,8 +12,11 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
+// app.use(express.json({extended:true}));
+// app.use(express.urlencoded({ extended: true }));
+
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({extended:true}));
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -70,6 +73,10 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/turorial.routes")(app);
+
+// routes
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
